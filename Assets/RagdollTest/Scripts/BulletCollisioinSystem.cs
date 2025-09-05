@@ -4,6 +4,7 @@ using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Physics;
+using Unity.Physics.Extensions;
 using Unity.Physics.Systems;
 using Unity.Transforms;
   
@@ -65,9 +66,9 @@ partial struct BulletCollisioinSystem : ISystem
 
                             RagdollPartDatas.SetComponentEnabled(hits[i].Entity, true);
 
-                            //var vec = PhysicsVelocityData[hits[i].Entity];
-                            //vec.ApplyAngularImpulse(mass, math.normalize(velocity.Linear)*0.001f);
-                            //PhysicsVelocityData[hits[i].Entity] = vec;
+                            var vec = PhysicsVelocityData[hits[i].Entity];
+                            vec.ApplyLinearImpulse(mass, math.normalize(velocity.Linear)*100);
+                            PhysicsVelocityData[hits[i].Entity] = vec;
                         }
                     }
                 }
